@@ -3,7 +3,11 @@ package com.autotest.tests;
 
 import com.autotest.assertions.Assertions;
 import com.autotest.pages.LoginPage;
+import com.autotest.utils.PropertiesUtils;
 import com.autotest.utils.WebDriverConfig;
+
+import java.io.IOException;
+
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
@@ -18,13 +22,15 @@ public class LoginPageTests
     WebDriverConfig webDriverConfig;
     WebDriver driver;
     LoginPage loginPage;
+    PropertiesUtils properties;
 
     @BeforeMethod(alwaysRun=true)
     public void initilize() {
     	webDriverConfig= WebDriverConfig.getInstance("chrome");
     	driver= webDriverConfig.getDriver();
         loginPage = new LoginPage(driver);
-        loginPage.navigate("https://www.saucedemo.com/");
+        properties= new PropertiesUtils();
+        loginPage.navigate(properties.getUrl());
     }
 
     @Test(priority=1)
